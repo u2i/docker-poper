@@ -15,7 +15,7 @@ on:
 
 env:
   # TODO: Change variable to your image's name.
-  IMAGE_NAME: image
+  IMAGE_NAME: poper
 
 jobs:
   # Run tests.
@@ -34,8 +34,7 @@ jobs:
           else
             docker build . --file Dockerfile
           fi
-
-  # Push image to GitHub Packages.
+  # Push image to GitHub Package Registry.
   # See also https://docs.docker.com/docker-hub/builds/
   push:
     # Ensure test job passes before pushing image.
@@ -70,4 +69,6 @@ jobs:
           echo VERSION=$VERSION
 
           docker tag image $IMAGE_ID:$VERSION
+          docker tag image $IMAGE_ID:latest
           docker push $IMAGE_ID:$VERSION
+          docker push $IMAGE_ID:latest
